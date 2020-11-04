@@ -1,7 +1,7 @@
 const fs = require('fs');
 const puppeter = require('puppeteer');
 const mangas = require('./../mangas.json');
-
+const logger = require('./logger');
 
 
 async function _miningPage() {
@@ -24,6 +24,7 @@ async function _miningPage() {
     }
   
   } catch (error) {
+    logger.error(error,'_miningPage')
     console.log(`_miningPage houve um error; ${error} `);
   }
   finally{
@@ -36,7 +37,7 @@ async function _miningPage() {
   const news = [];
   let hasError = null;
   for (const manga of mangas) {
-    console.log(`  Buscando atualizações do ${manga.name}...`);
+    logger.log(`Buscando atualizações do ${manga.name}...`)
     const page = await browser.newPage();
     
     do {
@@ -50,7 +51,7 @@ async function _miningPage() {
     } while (hasError);
 
     const chapters = await page.evaluate(_miningPage);
-
+    logger.log(`${chapters.length} Volumes`)
     if(!chapters){
       await page.close();
       continue;
@@ -78,7 +79,8 @@ async function _updateFile(mangas){
       enconding:'utf-8'
     }, 
     function (err) {
-    if (err) throw err;
+      logger.error(err,'_updateFile')
+      if (err) throw err;
     }
   );
 }
