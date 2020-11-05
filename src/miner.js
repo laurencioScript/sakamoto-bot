@@ -79,8 +79,10 @@ async function _updateFile(mangas){
       enconding:'utf-8'
     }, 
     function (err) {
-      logger.error(err,'_updateFile')
-      if (err) throw err;
+      if (err) {
+        logger.error(err,'_updateFile')
+        throw err
+      };
     }
   );
 }

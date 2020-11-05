@@ -2,7 +2,7 @@ const fs = require('fs');
 
 exports.log = (message) => {
   const logs = require('./../logs.json');
-  logs.push({
+  logs.unshift({
     createdAt:new Date().toLocaleString(),
     log:message
   })
@@ -20,7 +20,7 @@ exports.log = (message) => {
 
 exports.error = (message,local) => {
   const logs = require('./../logs.json');
-  logs.push({
+  logs.unshift({
     createdAt:new Date().toLocaleString(),
     local,
     error:message,

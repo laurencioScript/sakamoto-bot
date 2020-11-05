@@ -34,7 +34,7 @@ exports.routineMiner = async () => {
   this.worksMiner();
   setInterval(() => {
     this.worksMiner();
-  }, 900000)
+  },10800000)
 }
 
 exports.sendMessageNewSleeves = async (message) => {
